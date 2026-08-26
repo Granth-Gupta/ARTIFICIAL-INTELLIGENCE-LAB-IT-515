@@ -5,10 +5,15 @@ def checkTarget(target, rules):
     return []
 
 def backward_chaining(facts, rules, goal):
+    if goal in facts:
+        print(f"Fact '{goal}' is directly known.")
+        return True
+    
     conditions = checkTarget(goal, rules)
 
     if not conditions:
         print(f"No rule or fact found to prove '{goal}'.")
+
         return False
 
     print(f"To prove '{goal}', checking required conditions: {conditions}")
@@ -37,4 +42,5 @@ rules = [
 target = "Dead Battery"
 
 is_proven = backward_chaining(facts, rules, target)
+print("===========================")
 print(f"Hypothesis '{target}': {'CONFIRMED' if is_proven else 'REJECTED'}\n")
