@@ -1,9 +1,20 @@
+# KNOWN FACTS
+known_facts_1 = ["has_fever", "has_cough"]
+known_facts_2 = ["has_cough"]
+
+# RULES
+rules = [
+    (["has_fever", "has_cough"], "has_flu"),
+    (["has_flu"], "needs_rest")
+]
+
 def checkFacts(conditions, facts):
     for cond in conditions:
-        if(cond in facts):
-            return True
-    return False
+        if cond not in facts:
+            return False  
+    return True
 
+# FORWARD CHAIN
 def forward_chaining(facts, rules, goal):
     facts_changed = True
     
@@ -13,7 +24,6 @@ def forward_chaining(facts, rules, goal):
         for conditions, result in rules:
             if checkFacts(conditions, facts) and result not in facts:
                 facts.append(result)
-                print("New fact: " + result)
                 facts_changed = True
                 
                 if result == goal:
@@ -26,13 +36,22 @@ def forward_chaining(facts, rules, goal):
         print(f"Could not reach goal '{goal}'.")
         return False
 
-known_facts = ["has_fever", "has_cough"]
-print("Intitial Facts: ", known_facts)
-
-rules = [
-    (["has_fever", "has_cough"], "has_flu"),
-    (["has_flu"], "needs_rest")
-]
+# TESTING
+    
 target = "needs_rest"
 
-forward_chaining(known_facts, rules, target)
+print("Test 1")
+print("Intitial Facts: ", known_facts_1)
+print("Taregt: ", target)
+
+forward_chaining(known_facts_1, rules, target)
+
+target = "has_flu"
+
+print("-------------------------")
+
+print("Test 2")
+print("Intitial Facts: ", known_facts_2)
+print("Taregt: ", target)
+
+forward_chaining(known_facts_2, rules, target)
