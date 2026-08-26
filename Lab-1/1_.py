@@ -1,46 +1,59 @@
-# Properties of animals 
+# FACTS 
+facts_test_1 = {
+    "is_mammal": True,
+    "is_bird": False,
+    "is_fish": False,
+    "is_carnivore": True,
+    "pattern": "strips",
+    "is_herbivore": False
+}
 
-mammal = True
-bird = False
-fish = False
-carnivore = True 
-pattern = "strips" #---> "strips" , "spots" 
-herbivore = False
+facts_test_2 = {
+    "is_mammal": False,
+    "is_bird": True,
+    "is_fish": False,
+    "is_carnivore": True,
+    "pattern": "",
+    "is_herbivore": False
+}
 
-def identifyAnimal(
-        is_mammal, is_bird, is_fish, is_carnivore, _pattern, is_herbivore) -> str:
-    if(is_mammal and is_carnivore and (_pattern == "strips") and ( not is_herbivore and not is_fish and not is_bird)):
-        return "Tiger"
-    elif(is_bird and is_carnivore and (not is_herbivore and not is_fish and not is_mammal)):
-        return "Vulture"
-    else:
-        return  "Current properties are insufficient to identify the animal"
 
+# RULE BASE
+rules = [
+    ({"is_mammal": True, "is_carnivore": True, "pattern": "strips"}, "Tiger"),
+    ({"is_bird": True, "is_carnivore": True, "is_herbivore": False}, "Vulture"),
+    ({"is_mammal": True, "is_herbivore": True, "pattern": "strips"}, "Zebra")
+]
+
+# Check IF all conditions in a rule match the given facts
+def checkTarget(target, rules):
+    for conditions, fact in rules:
+        if target == fact:
+            return conditions
+    return {}
+
+# ANIMAL IDENTIFICATION FUNCTION
+def identifyAnimal(given_facts, rules) -> str:
+    for conditions, animal in rules:
+        match = True
+        
+        for attribute, value in conditions.items():
+            if given_facts.get(attribute) != value:
+                match = False
+                break
+                
+        if match:
+            return animal
+            
+    return "Current properties are insufficient to identify the animal"
+
+
+# TESTING
 print("Test 1")
-result = identifyAnimal(mammal, bird, fish, carnivore, pattern, herbivore)
+result = identifyAnimal(facts_test_1, rules)
 print(result)
 
 print("----------------------------")
 print("Test 2")
-
-result = identifyAnimal(is_mammal=False, is_bird=True, is_fish=False, is_carnivore=True, _pattern="" , is_herbivore=False)
+result = identifyAnimal(facts_test_2, rules)
 print(result)
-
-
-'''
-OUTPUT:
-
-Test 1
-Tiger
-----------------------------
-Test 2
-Current properties are insufficient to identify the animal
-
-Granth Gupta@DESKTOP-OH4NI9V MINGW64 /d/NITJ Study/AI Lab
-$ python -u "d:\NITJ Study\AI Lab\Lab-1\1_.py"
-Test 1
-Tiger
-----------------------------
-Test 2
-Vulture
-'''
