@@ -4,6 +4,7 @@ def checkTarget(target, rules):
             return conditions
     return []
 
+# Backward chain
 def backward_chaining(facts, rules, goal):
     if goal in facts:
         print(f"Fact '{goal}' is directly known.")
