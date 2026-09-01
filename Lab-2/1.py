@@ -70,12 +70,26 @@ rules = [
     (["F"], "G")
 ]
 
-# TESTING
-    
 target = "F"
+
+# TESTING FORWARD CHAINING
+
+print("===========================")
+print("FORWARD CHAINING TEST")
+print("===========================")
 
 print("Test")
 print("Intitial Facts: ", facts)
 print("Taregt: ", target)
 
 forward_chaining(facts, rules, target)
+
+print("===========================")
+print("BACKWARD CHAINING TEST")
+print("===========================")
+
+# TESTING BACKWARD CHAINING
+
+is_proven = backward_chaining(facts, rules, target)
+print("---------------------------")
+print(f"Hypothesis '{target}': {'CONFIRMED' if is_proven else 'REJECTED'}\n")
