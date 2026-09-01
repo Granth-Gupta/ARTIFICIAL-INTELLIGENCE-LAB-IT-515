@@ -1,57 +1,60 @@
 from collections import deque
 
-# 1. BREADTH-FIRST SEARCH (BFS) - Level by Level (FIFO Queue)
-def bfs(start, goal):
-    queue = deque([start])
-    visited = {start}
-    nodes_expanded = 0
+def add_edge(adj, u, v):
+    adj[u].append(v)
+    adj[v].append(u)
 
-    while queue:
-        current = queue.popleft() # FIFO
-        nodes_expanded += 1
+# 1. DEPTH-FIRST SEARCH (Recursive - Dives Deep First)
+def dfs_rec(adj, visited, s, res):
+    visited[s] = True
+    res.append(s)
 
-        if current == goal:
-            return True, nodes_expanded
+    for i in adj[s]:
+        if not visited[i]:
+            dfs_rec(adj, visited, i, res)
 
-        for neighbor in [current + 1, current * 2]:
-            if neighbor not in visited and neighbor <= goal:
-                visited.add(neighbor)
-                queue.append(neighbor)
 
-    return False, nodes_expanded
+def dfs(adj):
+    visited = [False] * len(adj)
+    res = []
+    dfs_rec(adj, visited, 0, res)  # Start from node 0
+    return res
 
-# DEPTH-FIRST SEARCH (DFS) - Deepest First (LIFO Stack)
-def dfs(start, goal):
-    stack = [start]
-    visited = set()
-    nodes_expanded = 0
 
-    while stack:
-        current = stack.pop() 
-        
-        if current in visited:
-            continue
-            
-        visited.add(current)
-        nodes_expanded += 1
+# 2. BREADTH-FIRST SEARCH (Queue-based - Explores Level by Level)
+def bfs(adj):
+    visited = [False] * len(adj)
+    res = []
+    
+    q = deque()
+    src = 0
+    visited[src] = True
+    q.append(src)
 
-        if current == goal:
-            return True, nodes_expanded
+    while q:
+        curr = q.popleft()
+        res.append(curr)
 
-        for neighbor in [current + 1, current * 2]:
-            if neighbor not in visited and neighbor <= goal:
-                stack.append(neighbor)
+        for x in adj[curr]:
+            if not visited[x]:
+                visited[x] = True
+                q.append(x)
 
-    return False, nodes_expanded
+    return res
 
-# RUNNING THE SEARCH
-start_state = 1
-goal_state = 10
+if __name__ == "__main__":
+    V = 5
+    adj = [[] for _ in range(V)]
 
-# Test BFS
-bfs_found, bfs_count = bfs(start_state, goal_state)
-print(f"BFS Goal Found: {bfs_found} | Total Nodes Expanded: {bfs_count}")
+    # Adding edges
+    add_edge(adj, 0, 1)
+    add_edge(adj, 0, 2)
+    add_edge(adj, 0, 4)  
+    add_edge(adj, 2, 3)
 
-# Test DFS
-dfs_found, dfs_count = dfs(start_state, goal_state)
-print(f"DFS Goal Found: {dfs_found} | Total Nodes Expanded: {dfs_count}")
+    # Perform DFS and BFS starting from node 0
+    dfs_res = dfs(adj)
+    bfs_res = bfs(adj)
+
+    print("DFS Traversal:", *dfs_res)
+    print("BFS Traversal:", *bfs_res)
