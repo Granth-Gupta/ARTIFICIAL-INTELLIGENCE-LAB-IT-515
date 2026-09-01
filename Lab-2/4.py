@@ -97,33 +97,19 @@ def solve_a_star(start_board, goal_board):
 
     return nodes_generated, nodes_expanded, -1, -1
 
-
-# =============================================================
-# MAIN EXECUTION
-# =============================================================
 if __name__ == "__main__":
-    # 0 represents the blank tile
-    # 3x3 Initial State:
-    # [ 1, 2, 3 ]
-    # [ 4, 0, 6 ]
-    # [ 7, 5, 8 ]
     initial_state = (
         1, 2, 3,
         4, 0, 6,
         7, 5, 8
     )
 
-    # 3x3 Goal State:
-    # [ 1, 2, 3 ]
-    # [ 4, 5, 6 ]
-    # [ 7, 8, 0 ]
     goal_state = (
         1, 2, 3,
         4, 5, 6,
         7, 8, 0
     )
 
-    # Solve puzzle
     gen, exp, depth, cost = solve_a_star(initial_state, goal_state)
 
     print("--- A* Search Analysis Results ---")
