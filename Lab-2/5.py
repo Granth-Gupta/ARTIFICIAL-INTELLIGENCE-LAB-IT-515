@@ -1,8 +1,3 @@
-# =====================================================================
-# 1. KNOWLEDGE BASE: Graph Edge Costs & Heuristic Values h(n)
-# =====================================================================
-
-# Edge weights representing actual step costs between connected cities
 edge_costs = {
     ('A', 'C'): 2,
     ('C', 'E'): 4,
@@ -24,14 +19,8 @@ heuristic = {
     'G': 0
 }
 
-
-# =====================================================================
-# 2. EVALUATION FUNCTION
-# =====================================================================
 def evaluate_path(path_name, path):
-    print(f"\n{'='*75}")
     print(f"EVALUATING: {path_name} ( Path: {' -> '.join(path)} )")
-    print(f"{'='*75}")
     
     # Step 1: Calculate cumulative path cost g(n) for each node
     g_values = {}
@@ -81,10 +70,6 @@ def evaluate_path(path_name, path):
         
     return total_path_cost
 
-
-# =====================================================================
-# MAIN EXECUTION
-# =====================================================================
 if __name__ == "__main__":
     # Define paths
     path1 = ['A', 'C', 'E', 'F', 'G']

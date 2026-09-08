@@ -79,7 +79,7 @@ print("FORWARD CHAINING TEST")
 print("===========================")
 
 print("Test")
-print("Intitial Facts: ", facts)
+print("Initialise Facts: ", facts)
 print("Taregt: ", target)
 
 forward_chaining(facts, rules, target)

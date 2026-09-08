@@ -46,12 +46,12 @@ print("Taregt: ", target)
 
 forward_chaining(known_facts_1, rules, target)
 
-target = "has_flu"
+# target = "has_flu"
 
-print("-------------------------")
+# print("-------------------------")
 
-print("Test 2")
-print("Intitial Facts: ", known_facts_2)
-print("Taregt: ", target)
+# print("Test 2")
+# print("Intitial Facts: ", known_facts_2)
+# print("Taregt: ", target)
 
-forward_chaining(known_facts_2, rules, target)
+# forward_chaining(known_facts_2, rules, target)
