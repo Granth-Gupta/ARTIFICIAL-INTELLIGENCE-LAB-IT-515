@@ -96,3 +96,30 @@ def find_best_move(board):
                     best_val = move_val
                     best_move = (r, c)
     return best_move
+
+import time
+
+if __name__ == "__main__":
+    # Initialize a sample 3x3 Tic-Tac-Toe board
+    board = [
+        ["O", "X", " "],
+        [" ", "X", " "],
+        [" ", " ", " "]
+    ]
+    
+    print("Initial Board State:")
+    print_board(board)
+    print("\nCalculating best move using Alpha-Beta Pruning...")
+    
+    # Measure performance of Alpha-Beta move calculation
+    start_time = time.time()
+    best_move = find_best_move(board)
+    end_time = time.time()
+    
+    print(f"Optimal Move for 'O': Row {best_move[0]}, Col {best_move[1]}")
+    print(f"Execution Time: {end_time - start_time:.6f} seconds")
+    
+    # Apply the move and display the updated board
+    board[best_move[0]][best_move[1]] = "O"
+    print("\nBoard After AI Move:")
+    print_board(board)
