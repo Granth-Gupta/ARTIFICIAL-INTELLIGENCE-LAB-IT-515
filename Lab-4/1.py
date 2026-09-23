@@ -107,17 +107,15 @@ if __name__ == "__main__":
         [" ", " ", " "]
     ]
     
-    print("Initial Board State:")
-    print_board(board)
     print("\nCalculating best move using Alpha-Beta Pruning...")
     
     # Measure performance of Alpha-Beta move calculation
     start_time = time.time()
     best_move = find_best_move(board)
-    end_time = time.time()
+    # end_time = time.time()
     
     print(f"Optimal Move for 'O': Row {best_move[0]}, Col {best_move[1]}")
-    print(f"Execution Time: {end_time - start_time:.6f} seconds")
+    # print(f"Execution Time: {end_time - start_time:.6f} seconds")
     
     # Apply the move and display the updated board
     board[best_move[0]][best_move[1]] = "O"
